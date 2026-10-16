@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Calendar, CheckCircle2, ShieldCheck, Clock, MessageSquare, Wrench } from 'lucide-react';
+import { X, Calendar, CheckCircle2, ShieldCheck, MessageSquare, Wrench } from 'lucide-react';
 import { ServiceItem, BUSINESS_DATA } from '../types';
-import { soundManager } from '../utils/audio';
 
 interface ServiceDetailModalProps {
   service: ServiceItem | null;
@@ -20,12 +19,10 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
   const isCyan = service.accentColor === 'cyan';
 
   const handleBookNow = () => {
-    soundManager.playClick();
     onBook(service);
   };
 
   const handleDirectWhatsApp = () => {
-    soundManager.playClick();
     const encoded = encodeURIComponent(
       `Hola Jesús Emiliano, vi en tu tarjeta digital el servicio de *${service.title}* y me gustaría pedirte más información o una cotización para mi auto.`
     );
@@ -57,10 +54,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
 
           {/* Close button */}
           <button
-            onClick={() => {
-              soundManager.playClick();
-              onClose();
-            }}
+            onClick={onClose}
             type="button"
             className="absolute top-3 right-3 z-20 p-2 rounded-full bg-black/60 border border-white/20 text-white/80 hover:text-white hover:bg-black/90 transition-colors backdrop-blur-md cursor-pointer"
           >

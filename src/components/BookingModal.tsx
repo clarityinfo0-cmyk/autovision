@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import confetti from 'canvas-confetti';
 import {
   X,
   Calendar,
@@ -17,7 +16,6 @@ import {
 } from 'lucide-react';
 import { ServiceItem, BUSINESS_DATA } from '../types';
 import { SERVICES_LIST } from '../data/services';
-import { soundManager } from '../utils/audio';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -116,7 +114,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   // Update default work type whenever service changes
   const handleServiceChange = (serviceId: string) => {
-    soundManager.playClick();
     setSelectedServiceId(serviceId);
     const works = SERVICE_WORK_TYPES[serviceId] || [];
     setSelectedWorkType(works[0] || '');
@@ -166,31 +163,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   const handleSendWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
-    soundManager.playSuccess();
-
-    try {
-      confetti({
-        particleCount: 55,
-        spread: 65,
-        origin: { y: 0.7 },
-        colors: ['#22d3ee', '#25d366', '#ec4899', '#38bdf8']
-      });
-    } catch {
-      // ignore
-    }
 
     const message = buildWhatsAppMessage();
     const encoded = encodeURIComponent(message);
     const url = `https://wa.me/${BUSINESS_DATA.whatsappClean}?text=${encoded}`;
 
-    setTimeout(() => {
-      window.open(url, '_blank');
-      onClose();
-    }, 350);
+    window.open(url, '_blank');
+    onClose();
   };
 
   const handleFastDirectWhatsApp = () => {
-    soundManager.playClick();
     const directMessage = encodeURIComponent(
       `Hola Jesús Emiliano, quiero cotizar y agendar una cita para *${currentService.title}* (${selectedWorkType || 'Servicio'}). ¿Tienes disponibilidad?`
     );
@@ -226,8 +208,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           {/* Close button */}
           <button
             onClick={() => {
-              soundManager.playClick();
-              onClose();
+                        onClose();
             }}
             type="button"
             className="absolute top-3 right-3 z-20 p-2 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
@@ -315,8 +296,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       key={idx}
                       type="button"
                       onClick={() => {
-                        soundManager.playClick();
-                        setSelectedWorkType(work);
+                                            setSelectedWorkType(work);
                       }}
                       className={`w-full p-2.5 rounded-xl text-left text-xs font-medium border transition-all cursor-pointer flex items-center gap-2.5 ${
                         isChecked
@@ -351,8 +331,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <button
                   type="button"
                   onClick={() => {
-                    soundManager.playClick();
-                    setServiceLocation('taller');
+                                    setServiceLocation('taller');
                   }}
                   className={`p-3 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
                     serviceLocation === 'taller'
@@ -375,8 +354,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <button
                   type="button"
                   onClick={() => {
-                    soundManager.playClick();
-                    setServiceLocation('domicilio');
+                                    setServiceLocation('domicilio');
                   }}
                   className={`p-3 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
                     serviceLocation === 'domicilio'
@@ -435,8 +413,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     key={d}
                     type="button"
                     onClick={() => {
-                      soundManager.playClick();
-                      setDateMode('quick');
+                                        setDateMode('quick');
                       setQuickDay(d);
                     }}
                     className={`py-1.5 px-1 rounded-lg text-[10px] font-bold tracking-tight text-center border transition-all cursor-pointer ${
@@ -492,8 +469,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       key={slot}
                       type="button"
                       onClick={() => {
-                        soundManager.playClick();
-                        setPreferredHourSlot(slot);
+                                            setPreferredHourSlot(slot);
                       }}
                       className={`p-2 rounded-xl text-xs font-semibold text-center border transition-all cursor-pointer ${
                         isSlotSelected

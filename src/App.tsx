@@ -4,8 +4,6 @@ import {
   QrCode,
   Phone,
   RotateCcw,
-  Volume2,
-  VolumeX,
   UserPlus,
   MapPin,
   Calendar,
@@ -21,7 +19,6 @@ import { ServiceDetailModal } from './components/ServiceDetailModal';
 import { BookingModal } from './components/BookingModal';
 import { QRCodeModal } from './components/QRCodeModal';
 import { TechParticles } from './components/TechParticles';
-import { soundManager } from './utils/audio';
 import { downloadVCard } from './utils/vcard';
 
 export default function App() {
@@ -30,23 +27,14 @@ export default function App() {
   const [bookingService, setBookingService] = useState<ServiceItem | null>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isQROpen, setIsQROpen] = useState(false);
-  const [isMuted, setIsMuted] = useState(!soundManager.isEnabled);
   const [phoneFrameMode, setPhoneFrameMode] = useState<'iphone' | 'android' | 'fluid'>('iphone');
 
-  const toggleSound = () => {
-    const active = soundManager.toggleSound();
-    setIsMuted(!active);
-    soundManager.playClick();
-  };
-
   const handleOpenBooking = (service?: ServiceItem) => {
-    soundManager.playClick();
     setBookingService(service || null);
     setIsBookingOpen(true);
   };
 
   const handleDirectWhatsApp = () => {
-    soundManager.playClick();
     const message = encodeURIComponent(
       'Hola Jesús Emiliano, me pongo en contacto desde tu tarjeta digital AutoVisión para solicitar información.'
     );
@@ -54,12 +42,10 @@ export default function App() {
   };
 
   const handleDirectCall = () => {
-    soundManager.playClick();
     window.open(`tel:${BUSINESS_DATA.whatsappNumber}`, '_self');
   };
 
   const handleReplayIntro = () => {
-    soundManager.playClick();
     setShowIntro(true);
   };
 
@@ -145,10 +131,7 @@ export default function App() {
             <div className="flex items-center gap-1.5">
               {/* QR Scan Button */}
               <button
-                onClick={() => {
-                  soundManager.playClick();
-                  setIsQROpen(true);
-                }}
+                onClick={() => setIsQROpen(true)}
                 type="button"
                 className="p-1.5 rounded-full bg-slate-900/90 border border-cyan-500/40 text-cyan-300 hover:text-white hover:bg-cyan-950 transition-colors cursor-pointer shadow-sm active:scale-95"
                 title="Escanear Código QR"
@@ -158,25 +141,12 @@ export default function App() {
 
               {/* Save Contact Button */}
               <button
-                onClick={() => {
-                  soundManager.playClick();
-                  downloadVCard();
-                }}
+                onClick={() => downloadVCard()}
                 type="button"
                 className="p-1.5 rounded-full bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition-colors cursor-pointer shadow-sm active:scale-95"
                 title="Guardar Contacto"
               >
                 <UserPlus className="w-3.5 h-3.5" />
-              </button>
-
-              {/* Sound Toggle */}
-              <button
-                onClick={toggleSound}
-                type="button"
-                className="p-1.5 rounded-full bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-cyan-400 transition-colors cursor-pointer shadow-sm active:scale-95"
-                title={isMuted ? 'Activar Sonido' : 'Silenciar'}
-              >
-                {isMuted ? <VolumeX className="w-3.5 h-3.5 text-slate-500" /> : <Volume2 className="w-3.5 h-3.5 text-cyan-400" />}
               </button>
 
               {/* Replay Intro Animation */}

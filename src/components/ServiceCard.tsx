@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Calendar, Eye, Sparkles } from 'lucide-react';
+import { Calendar, Eye } from 'lucide-react';
 import { ServiceItem } from '../types';
-import { soundManager } from '../utils/audio';
 
 interface ServiceCardProps {
   service: ServiceItem;
@@ -21,13 +20,11 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
   const handleImageClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    soundManager.playClick();
     onOpenDetails(service);
   };
 
   const handleBookClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    soundManager.playClick();
     onBookAppointment(service);
   };
 

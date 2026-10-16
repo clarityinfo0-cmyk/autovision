@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Volume2, VolumeX, Sparkles } from 'lucide-react';
-import { soundManager } from '../utils/audio';
+import { Sparkles } from 'lucide-react';
 import { AutoVisionLogo } from './AutoVisionLogo';
 import { TechParticles } from './TechParticles';
 
@@ -11,7 +10,6 @@ interface IntroAnimationProps {
 
 export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
   const [phase, setPhase] = useState<'dark' | 'drl' | 'ignition' | 'reveal' | 'ready'>('dark');
-  const [isMuted, setIsMuted] = useState(!soundManager.isEnabled);
   const TOTAL_DURATION_MS = 6000;
   const [timeLeft, setTimeLeft] = useState(6);
   const [progress, setProgress] = useState(0);
@@ -24,7 +22,6 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
 
     const t2 = setTimeout(() => {
       setPhase('ignition');
-      soundManager.playEngineStartup();
     }, 2000);
 
     const t3 = setTimeout(() => {
@@ -60,17 +57,7 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
     };
   }, [onComplete]);
 
-  const toggleSound = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const active = soundManager.toggleSound();
-    setIsMuted(!active);
-    if (active) {
-      soundManager.playEngineStartup();
-    }
-  };
-
   const handleSkipOrEnter = () => {
-    soundManager.playClick();
     onComplete();
   };
 
@@ -98,20 +85,12 @@ export const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) =>
 
           <div className="flex items-center gap-3">
             <button
-              onClick={toggleSound}
-              type="button"
-              className="p-2 rounded-full bg-slate-900/80 border border-slate-700/60 text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-colors backdrop-blur-md"
-              title={isMuted ? 'Activar Sonido' : 'Silenciar'}
-            >
-              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-cyan-400" />}
-            </button>
-            <button
               onClick={(e) => {
                 e.stopPropagation();
                 handleSkipOrEnter();
               }}
               type="button"
-              className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-300 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 rounded-full backdrop-blur-md transition-all active:scale-95"
+              className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-300 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 rounded-full backdrop-blur-md transition-all active:scale-95 cursor-pointer"
             >
               Saltar
             </button>

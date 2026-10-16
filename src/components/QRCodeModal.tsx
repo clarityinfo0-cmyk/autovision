@@ -4,7 +4,6 @@ import QRCode from 'qrcode';
 import { X, Copy, Check, Share2, Download, QrCode, Phone, Sparkles } from 'lucide-react';
 import { BUSINESS_DATA } from '../types';
 import { downloadVCard } from '../utils/vcard';
-import { soundManager } from '../utils/audio';
 
 interface QRCodeModalProps {
   isOpen: boolean;
@@ -48,14 +47,12 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({ isOpen, onClose }) => 
   if (!isOpen) return null;
 
   const handleCopy = () => {
-    soundManager.playClick();
     navigator.clipboard.writeText(activeUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handleShare = async () => {
-    soundManager.playClick();
     if (navigator.share) {
       try {
         await navigator.share({
@@ -74,7 +71,6 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({ isOpen, onClose }) => 
   };
 
   const handleDownloadContact = () => {
-    soundManager.playClick();
     downloadVCard();
   };
 
@@ -101,8 +97,7 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({ isOpen, onClose }) => 
           {/* Close button */}
           <button
             onClick={() => {
-              soundManager.playClick();
-              onClose();
+                        onClose();
             }}
             type="button"
             className="absolute top-4 right-4 p-2 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
@@ -130,8 +125,7 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({ isOpen, onClose }) => 
           <div className="w-full flex rounded-xl bg-slate-900 p-1 border border-slate-800 mb-4">
             <button
               onClick={() => {
-                soundManager.playClick();
-                setQrType('card');
+                            setQrType('card');
               }}
               type="button"
               className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
@@ -144,8 +138,7 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({ isOpen, onClose }) => 
             </button>
             <button
               onClick={() => {
-                soundManager.playClick();
-                setQrType('whatsapp');
+                            setQrType('whatsapp');
               }}
               type="button"
               className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
