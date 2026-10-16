@@ -1,0 +1,6 @@
+{
+  "name": "AutoVisión - Tarjeta Digital Premium",
+  "description": "Tarjeta de presentación digital interactiva de AutoVisión LED y Polarizados - Jesús Emiliano Espinoza Velázquez.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
