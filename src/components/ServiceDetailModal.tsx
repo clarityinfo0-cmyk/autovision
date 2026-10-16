@@ -76,6 +76,13 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                 alt={service.title}
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.dataset.fallback) {
+                    target.dataset.fallback = 'true';
+                    target.src = `/images/${service.id}.jpg`;
+                  }
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
 

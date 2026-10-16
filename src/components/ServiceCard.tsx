@@ -62,6 +62,13 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-108 group-hover/img:brightness-110"
             loading="lazy"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.dataset.fallback) {
+                target.dataset.fallback = 'true';
+                target.src = `/images/${service.id}.jpg`;
+              }
+            }}
           />
 
           {/* Scrim overlay */}

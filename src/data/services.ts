@@ -1,4 +1,8 @@
 import { ServiceItem } from '../types';
+import carAudioImg from '../assets/images/service_car_audio_1792141695031.jpg';
+import ledLightsImg from '../assets/images/service_led_lights_1792141696092.jpg';
+import polarizadoImg from '../assets/images/service_polarizado_tint_1792141696385.jpg';
+import accesoriosImg from '../assets/images/service_car_accessories_1792141696343.jpg';
 
 export const SERVICES_LIST: ServiceItem[] = [
   {
@@ -6,7 +10,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     title: 'CAR AUDIO / INSTALACIONES',
     subtitle: 'Sistemas de sonido de alta fidelidad',
     description: 'Sistemas de sonido de alta gama e instalacion profesional.',
-    image: '/src/assets/images/service_car_audio_1792141695031.jpg',
+    image: carAudioImg,
     badge: 'ALTA FIDELIDAD',
     accentColor: 'magenta',
     features: [
@@ -28,7 +32,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     title: 'LUCES LED / INSTALACIONES',
     subtitle: 'Retrofit e iluminación de alto rendimiento',
     description: 'Iluminación premium y montaje especializado.',
-    image: '/src/assets/images/service_led_lights_1792141696092.jpg',
+    image: ledLightsImg,
     badge: 'LUZ LÁSER & BI-LED',
     accentColor: 'cyan',
     features: [
@@ -50,7 +54,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     title: 'POLARIZADOS / TINTING',
     subtitle: 'Nanocerámica y control térmico avanzado',
     description: 'Privacidad y protección térmica avanzadas.',
-    image: '/src/assets/images/service_polarizado_tint_1792141696385.jpg',
+    image: polarizadoImg,
     badge: '99% PROTECCIÓN UV',
     accentColor: 'cyan',
     features: [
@@ -72,7 +76,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     title: 'VENTA DE ACCESORIOS',
     subtitle: 'Equipamiento y personalización exclusiva',
     description: 'Equipamiento exclusivo y personalización.',
-    image: '/src/assets/images/service_car_accessories_1792141696343.jpg',
+    image: accesoriosImg,
     badge: 'ESTILO & CONFORT',
     accentColor: 'magenta',
     features: [
